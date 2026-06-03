@@ -16,18 +16,18 @@ import warnings
 warnings.filterwarnings('ignore')
 
 print("=" * 60)
-print("🚀 Framework de Previsión de Demanda - PYMES")
+print(" Framework de Previsión de Demanda - PYMES")
 print("=" * 60)
 
 # 1. Cargar datos
-print("\n📂 Cargando datos...")
+print("\n Cargando datos...")
 df = pd.read_excel('data/raw/dataset_sintetico_demanda_lima.xlsx')
 df['fecha'] = pd.to_datetime(df['fecha'])
 df = df.sort_values('fecha').reset_index(drop=True)
 print(f"  Datos cargados: {len(df)} días")
 
 # 2. Preparar features
-print("\n🔧 Preparando features...")
+print("\n Preparando features...")
 df['dia_semana'] = df['fecha'].dt.dayofweek
 df['mes'] = df['fecha'].dt.month
 df['dia'] = df['fecha'].dt.day
