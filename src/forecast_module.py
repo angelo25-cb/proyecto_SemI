@@ -1,66 +1,38 @@
+import numpy as np
 import pandas as pd
-import joblib
-from datetime import datetime, timedelta
-import os
 
-
-class ForecastModule:
-
-    def __init__(self):
-
-        self.model = joblib.load('models/xgboost_model.pkl')
-
-        os.makedirs('results', exist_ok=True)
-
-    def predict_next_days(self, days=7):
-
-        today = datetime.now()
-
+class DemandForecaster:
+    """Módulo para hacer predicciones futuras"""
+    
+    def __init__(self, model, model_name: str, preprocessor=None):
+        self.model = model
+        self.model_name = model_name
+        self.preprocessor = preprocessor
+    
+    def predict_future(self, last_data: np.ndarray, periods: int = 30,
+                       window: int = 7) -> np.ndarray:
+        """Predecir períodos futuros (para modelos secuenciales)"""
         predictions = []
-
-        for i in range(days):
-
-            future_date = today + timedelta(days=i)
-
-            input_data = pd.DataFrame({
-
-                'dia_semana_num': [future_date.weekday()],
-                'es_fin_semana': [1 if future_date.weekday() >= 5 else 0],
-                'temperatura_promedio': [19],
-                'precipitacion_mm': [1.5],
-                'mes': [future_date.month],
-            })
-
-            dias = [
-                'Monday',
-                'Tuesday',
-                'Wednesday',
-                'Thursday',
-                'Friday',
-                'Saturday',
-                'Sunday'
-            ]
-
-            for dia in dias:
-
-                input_data[f'dia_{dia}'] = 1 if future_date.strftime('%A') == dia else 0
-
-            pred = self.model.predict(input_data)[0]
-
-            predictions.append({
-
-                'fecha': future_date.strftime('%Y-%m-%d'),
-                'demanda_pronosticada': round(pred)
-            })
-
-        forecast_df = pd.DataFrame(predictions)
-
-        # Guardar CSV
-        forecast_df.to_csv(
-            'results/pronosticos_7dias.csv',
-            index=False
-        )
-
-        print("\nPronóstico guardado en results/pronosticos_7dias.csv")
-
-        return forecast_df
+        current_window = last_data[-window:].copy()
+        
+        for _ in range(periods):
+            # Predecir siguiente punto
+            pred = self.model.predict(current_window.reshape(1, -1))[0]
+            predictions.append(pred)
+            
+            # Actualizar ventana
+            current_window = np.append(current_window[1:], pred)
+        
+        return np.array(predictions)
+    
+    def predict_prophet(self, periods: int = 30) -> pd.DataFrame:
+        """Predecir con Prophet"""
+        future = self.model.make_future_dataframe(periods=periods)
+        forecast = self.model.predict(future)
+        return forecast[['ds', 'yhat', 'yhat_lower', 'yhat_upper']]
+    
+    def predict_future_prophet(self, periods: int = 30) -> pd.DataFrame:
+        """Predecir futuros períodos con Prophet"""
+        future = self.model.make_future_dataframe(periods=periods)
+        forecast = self.model.predict(future)
+        return forecast.tail(periods)[['ds', 'yhat']]

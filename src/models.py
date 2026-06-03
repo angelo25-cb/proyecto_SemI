@@ -1,91 +1,54 @@
-from xgboost import XGBRegressor
-from sklearn.ensemble import RandomForestRegressor
-from sklearn.metrics import mean_absolute_error, mean_squared_error, mean_absolute_percentage_error
-import matplotlib.pyplot as plt
-import joblib
-import os
 import numpy as np
+from sklearn.ensemble import RandomForestRegressor, GradientBoostingRegressor
+from xgboost import XGBRegressor
+from prophet import Prophet
+from typing import Dict, Any, Optional
 
-
-class DemandForecastModels:
-
-    def __init__(self):
-        self.models = {}
-        os.makedirs('models', exist_ok=True)
-        os.makedirs('results', exist_ok=True)
-
-    def evaluate_model(self, y_test, pred, model_name):
-
-        mae = mean_absolute_error(y_test, pred)
-
-        rmse = np.sqrt(mean_squared_error(y_test, pred))
-
-        mape = mean_absolute_percentage_error(y_test, pred) * 100
-
-        print(f"\n *{model_name}")
-        print(f"MAE: {mae:.2f}")
-        print(f"RMSE: {rmse:.2f}")
-        print(f"MAPE: {mape:.2f}%")
-
-        # Gráfico
-        plt.figure(figsize=(10,5))
-        plt.plot(y_test.values, label='Demanda Real')
-        plt.plot(pred, label='Pronóstico')
-        plt.title(f'{model_name} - Real vs Pronosticado')
-        plt.xlabel('Observaciones')
-        plt.ylabel('Demanda')
-        plt.legend()
-
-        plt.savefig(f'results/{model_name}_forecast.png')
-        plt.close()
-
-        return mae, rmse, mape
-
-    def train_xgboost(self, X_train, y_train, X_test, y_test):
-
-        model = XGBRegressor(
-            n_estimators=500,
-            learning_rate=0.05,
-            max_depth=6,
-            random_state=42
-        )
-
-        model.fit(X_train, y_train)
-
-        pred = model.predict(X_test)
-
-        mae, rmse, mape = self.evaluate_model(
-            y_test,
-            pred,
-            "XGBoost"
-        )
-
-        joblib.dump(model, 'models/xgboost_model.pkl')
-
-        print("XGBoost guardado correctamente")
-
-        return model
-
-    def train_randomforest(self, X_train, y_train, X_test, y_test):
-
-        model = RandomForestRegressor(
-            n_estimators=300,
-            max_depth=8,
-            random_state=42
-        )
-
-        model.fit(X_train, y_train)
-
-        pred = model.predict(X_test)
-
-        mae, rmse, mape = self.evaluate_model(
-            y_test,
-            pred,
-            "RandomForest"
-        )
-
-        joblib.dump(model, 'models/randomforest_model.pkl')
-
-        print("Random Forest guardado correctamente")
-
-        return model
+class ModelFactory:
+    """Fábrica de modelos predictivos"""
+    
+    @staticmethod
+    def get_model(model_name: str, params: Dict[str, Any]):
+        """Retorna una instancia del modelo solicitado"""
+        
+        if model_name == "Random Forest":
+            return RandomForestRegressor(
+                n_estimators=params.get('n_estimators', 200),
+                max_depth=params.get('max_depth', 10),
+                random_state=42,
+                n_jobs=-1
+            )
+        
+        elif model_name == "Gradient Boosting":
+            return GradientBoostingRegressor(
+                n_estimators=params.get('n_estimators', 200),
+                learning_rate=params.get('learning_rate', 0.05),
+                max_depth=params.get('max_depth', 5),
+                random_state=42
+            )
+        
+        elif model_name == "XGBoost":
+            return XGBRegressor(
+                n_estimators=params.get('n_estimators', 300),
+                learning_rate=params.get('learning_rate', 0.05),
+                max_depth=params.get('max_depth', 6),
+                random_state=42,
+                verbosity=0
+            )
+        
+        elif model_name == "Prophet":
+            return Prophet(
+                yearly_seasonality=params.get('yearly_seasonality', True),
+                weekly_seasonality=params.get('weekly_seasonality', True),
+                daily_seasonality=params.get('daily_seasonality', False)
+            )
+        
+        else:
+            raise ValueError(f"Modelo {model_name} no reconocido")
+    
+    @staticmethod
+    def prepare_prophet_data(df, date_col='fecha', target_col='demanda_real'):
+        """Preparar datos específicos para Prophet"""
+        prophet_df = df[[date_col, target_col]].copy()
+        prophet_df.columns = ['ds', 'y']
+        return prophet_df
