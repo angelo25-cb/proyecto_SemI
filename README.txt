@@ -32,7 +32,7 @@ El sistema implementa múltiples modelos predictivos para optimizar la producci�
 
 ##  Estructura del Proyecto
 
-pronostico-pymes/
+proyecto_SemI/
 ├── main.py                          # Punto de entrada principal
 ├── requirements.txt                 # Dependencias
 ├── config.yaml                      # Configuración global
