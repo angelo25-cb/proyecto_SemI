@@ -16,13 +16,14 @@ El sistema implementa múltiples modelos predictivos para optimizar la producci�
 | Random Forest | Machine Learning |  Activo |
 | Gradient Boosting | Machine Learning |  Activo |
 | XGBoost | Machine Learning |  Activo |
-| Prophet | Series Temporales |  En desarrollo |
-| LSTM | Deep Learning |  En desarrollo |
+| Prophet | Series Temporales | Inactivo |
+| LSTM | Deep Learning | Inactivo |
 
 ##  Tecnologías Utilizadas
 
 - **Python 3.14.3** - Versión principal del proyecto
 - **pandas 2.0+** - Manipulación de datos
+  **Python Versión 3.13.9===> mi laptop
 - **numpy 1.24+** - Cálculos numéricos
 - **scikit-learn 1.3+** - Modelos ML
 - **XGBoost 2.0+** - Gradient boosting optimizado
@@ -64,8 +65,8 @@ proyecto_SemI/
 
 ### 1. Clonar el repositorio
 ```bash
-git clone https://github.com/angelo25-cb/pronostico-pymes.git
-cd pronostico-pymes
+git clone https://github.com/angelo25-cb/proyecto_SemI.git
+cd proyecto_SemI
 
 # 1. Instalar dependencias
 pip install -r requirements.txt
@@ -75,15 +76,16 @@ pip install -r requirements.txt
 
 # 3. Ejecutar main
 python main.py
-
+C:\ProgramData\anaconda3\python.exe main.py ==> para mi laptop
 # 4. Ver dashboard
-python -m streamlit run dashboard/app.py    
+python -m streamlit run dashboard/app.py  
 
+C:\ProgramData\anaconda3\python.exe -m streamlit run dashboard/app.py ==> para mi laptop
 Este framework te permite:
 
-Comparar 5 modelos (RF, GB, XGB, Prophet, LSTM)
+Comparar 3 modelos (RF, GB, XGB)
 
-Calcular MAE, RMSE, MAPE
+Calcular MAE, RMSE, MAPE, R2, R2_ajustado
 
 Estimar reducción de desperdicio (%)
 

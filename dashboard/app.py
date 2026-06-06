@@ -14,7 +14,7 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# Estilo CSS personalizado (sin emoticones)
+# Estilo CSS personalizado 
 st.markdown("""
 <style>
     .main-header {
