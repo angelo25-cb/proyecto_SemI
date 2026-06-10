@@ -1,4 +1,4 @@
 Modelo,MAE,RMSE,MAPE,R2,R2_Ajustado
-Gradient Boosting,22.13,28.07,11.35,0.4012,0.3658
-Random Forest,22.16,28.43,11.33,0.3856,0.3492
-XGBoost,22.56,29.05,11.53,0.3587,0.3207
+Random Forest,23.96,30.72,12.9,0.4762,0.4452
+Gradient Boosting,25.07,31.63,13.2,0.4448,0.4119
+XGBoost,25.2,32.1,13.25,0.4281,0.3943

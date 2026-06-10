@@ -16,8 +16,6 @@ El sistema implementa múltiples modelos predictivos para optimizar la producci�
 | Random Forest | Machine Learning |  Activo |
 | Gradient Boosting | Machine Learning |  Activo |
 | XGBoost | Machine Learning |  Activo |
-| Prophet | Series Temporales | Inactivo |
-| LSTM | Deep Learning | Inactivo |
 
 ##  Tecnologías Utilizadas
 
@@ -34,13 +32,16 @@ El sistema implementa múltiples modelos predictivos para optimizar la producci�
 ##  Estructura del Proyecto
 
 proyecto_SemI/
+│
 ├── main.py                          # Punto de entrada principal
 ├── requirements.txt                 # Dependencias
 ├── config.yaml                      # Configuración global
+│
 ├── data/
 │   ├── raw/                         # Datos crudos
 │   ├── processed/                   # Datos procesados
 │   └── results/                     # Resultados de validación
+│
 ├── src/
 │   ├── __init__.py
 │   ├── preprocessing.py             # Limpieza y preparación
@@ -50,16 +51,28 @@ proyecto_SemI/
 │   ├── evaluation.py                # Métricas y validación
 │   ├── utils.py                     # Utilidades generales
 │   └── excess_management.py         # Cálculo de desperdicio
+│
 ├── notebooks/
-│   ├── 01_eda.ipynb                 # Análisis exploratorio
-│   ├── 02_model_comparison.ipynb    # Comparación de modelos
-│   └── 03_results_analysis.ipynb    # Análisis de resultados
+│   ├── 01_eda.ipynb
+│   ├── 02_model_comparison.ipynb
+│   └── 03_results_analysis.ipynb
+│
 ├── reports/
-│   ├── figures/                     # Gráficos
-│   └── tables/                      # Tablas de resultados
-└── dashboard/                       # Interfaz Streamlit
-    └── app.py
-
+│   ├── figures/
+│   └── tables/
+│
+└── dashboard/
+    │
+    ├── app.py                       # Dashboard principal Streamlit
+    │
+    └── assets/
+        │
+        ├── __init__.py
+        ├── style.css                # Estilos visuales
+        ├── utils.py                 # Carga de CSS y utilidades
+        ├── metrics.py               # Tarjetas KPI
+        ├── charts.py                # Gráficos Plotly
+        └── recommendations.py       # Recomendación final
 
 ##  Instalación y Ejecución
 
