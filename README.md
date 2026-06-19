@@ -32,47 +32,48 @@ El sistema implementa múltiples modelos predictivos para optimizar la producci�
 ##  Estructura del Proyecto
 
 proyecto_SemI/
-│
-├── main.py                          # Punto de entrada principal
-├── requirements.txt                 # Dependencias
-├── config.yaml                      # Configuración global
-│
+
 ├── data/
-│   ├── raw/                         # Datos crudos
-│   ├── processed/                   # Datos procesados
-│   └── results/                     # Resultados de validación
-│
-├── src/
-│   ├── __init__.py
-│   ├── preprocessing.py             # Limpieza y preparación
-│   ├── models.py                    # Definición de modelos
-│   ├── train.py                     # Entrenamiento
-│   ├── forecast_module.py           # Predicciones futuras
-│   ├── evaluation.py                # Métricas y validación
-│   ├── utils.py                     # Utilidades generales
-│   └── excess_management.py         # Cálculo de desperdicio
+│   ├── raw/
+│   │   └── dataset_demanda_lima.xlsx
+│   │
+│   ├── processed/
+│   │   ├── random_forest.pkl
+│   │   ├── gradient_boosting.pkl
+│   │   └── xgboost.pkl
+│   │
+│   └── results/
+│       ├── resultados_modelos.csv
+│       ├── metricas_modelos.csv
+│       └── demanda_vs_prediccion.csv
 │
 ├── notebooks/
 │   ├── 01_eda.ipynb
 │   ├── 02_model_comparison.ipynb
 │   └── 03_results_analysis.ipynb
 │
-├── reports/
-│   ├── figures/
-│   └── tables/
+reports/
 │
-└── dashboard/
-    │
-    ├── app.py                       # Dashboard principal Streamlit
-    │
-    └── assets/
-        │
-        ├── __init__.py
-        ├── style.css                # Estilos visuales
-        ├── utils.py                 # Carga de CSS y utilidades
-        ├── metrics.py               # Tarjetas KPI
-        ├── charts.py                # Gráficos Plotly
-        └── recommendations.py       # Recomendación final
+├── figures/
+│   ├── error_distribution.png
+│   ├── feature_importance.png
+│   ├── impacto_economico.png
+│   ├── real_vs_predicho.png
+│   └── validation_cruzada_temporal_comparative.png
+│
+└── tables/
+    ├── metricas_modelos.csv
+    ├── resultados_modelos.csv
+    └── resumen_ejecutivo.csv
+│
+├── dashboard/
+│   ├── app.py
+│   └── assets/
+│       └── style.css
+│
+├── requirements.txt
+│── config.yaml
+└── README.md
 
 ##  Instalación y Ejecución
 
