@@ -1,15 +1,36 @@
+# =========================
+# CORE DATA SCIENCE STACK
+# =========================
 pandas>=2.0.0
 numpy>=1.24.0
+openpyxl>=3.1.5
+
+# =========================
+# VISUALIZACIÓN
+# =========================
 matplotlib>=3.7.0
 seaborn>=0.12.0
+plotly>=5.17.0
+
+# =========================
+# MACHINE LEARNING
+# =========================
 scikit-learn>=1.3.0
 xgboost>=2.0.0
-prophet>=1.1.0
-#tensorflow>=2.13.0  # Opcional, si usas LSTM
-torch>=2.0.0         # Alternativa a TensorFlow
-openpyxl>=3.1.5
+statsmodels>=0.14.0
+
+# =========================
+# OPTIMIZACIÓN
+# =========================
+optuna>=3.0.0
+
+# =========================
+# DASHBOARD
+# =========================
 streamlit>=1.28.0
-plotly>=5.17.0
+
+# =========================
+# UTILIDADES
+# =========================
 pyyaml>=6.0
 joblib>=1.3.0
-statsmodels>=0.14.0

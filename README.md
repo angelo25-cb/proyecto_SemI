@@ -6,20 +6,26 @@
 
 ##  Descripción del Proyecto
 
-Framework para la previsión de demanda y reducción de desperdicio en PYMES de alimentos preparados. 
-El sistema implementa múltiples modelos predictivos para optimizar la producción y minimizar pérdidas económicas.
+Framework de pronóstico de demanda para PYMES de alimentos preparados, orientado a:
+
+Predicción de demanda diaria
+Reducción de desperdicio
+Optimización de producción
+Análisis económico de decisiones operativas
+
+El sistema implementa modelos de Machine Learning y técnicas de validación temporal para mejorar la toma de decisiones.
 
 ###  Modelos Implementados
 
-| Modelo | Tipo | Estado |
-|--------|------|--------|
-| Random Forest | Machine Learning |  Activo |
-| Gradient Boosting | Machine Learning |  Activo |
-| XGBoost | Machine Learning |  Activo |
+| Modelo            | Tipo             | Estado |
+| ----------------- | ---------------- | ------ |
+| Random Forest     | Machine Learning | Activo |
+| Gradient Boosting | Machine Learning | Activo |
+| XGBoost           | Machine Learning | Activo |
 
 ##  Tecnologías Utilizadas
 
-- **Python 3.14.3** - Versión principal del proyecto
+- **Python 3.13.9** - Versión principal del proyecto
 - **pandas 2.0+** - Manipulación de datos
   **Python Versión 3.13.9===> mi laptop
 - **numpy 1.24+** - Cálculos numéricos
@@ -62,15 +68,16 @@ reports/
 │   └── validation_cruzada_temporal_comparative.png
 │
 └── tables/
-    ├── metricas_modelos.csv
-    ├── resultados_modelos.csv
-    └── resumen_ejecutivo.csv
+|    ├── model_comparison_full.csv
 │
 ├── dashboard/
 │   ├── app.py
 │   └── assets/
 │       └── style.css
-│
+│── src/
+│   ├── preprocessing.py
+│   ├── forecast_module.py
+│   └── excess_management.py
 ├── requirements.txt
 │── config.yaml
 └── README.md
